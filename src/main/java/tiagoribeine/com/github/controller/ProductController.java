@@ -3,6 +3,8 @@ package tiagoribeine.com.github.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import tiagoribeine.com.github.data.dto.ProductRequestDTO;
+import tiagoribeine.com.github.data.dto.ProductResponseDTO;
 import tiagoribeine.com.github.model.Product;
 import tiagoribeine.com.github.service.ProductService;
 import java.util.List;
@@ -18,43 +20,36 @@ public class ProductController {
 
     // Create
     @PostMapping
-    public Product create(@RequestBody Product product){
-        return productService.saveProduct(product);
+    public ProductResponseDTO create(@RequestBody ProductRequestDTO requestDTO){
+        return productService.saveProductDTO(requestDTO);
     }
 
     @PostMapping("/batch")
-    public List<Product> createAll(@RequestBody List<Product> products){
-        return productService.saveAllProducts(products);
+    public List<ProductResponseDTO> createAll(@RequestBody List<ProductRequestDTO> requestsdto){
+        return productService.saveAllProductsDTO(requestsdto);
     }
-
-//    @PostMapping(
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public Product create(@RequestBody Product product){
-//        return productService.saveProduct(product);
-//    }
 
     // Read
     @GetMapping("/{id}")
-    public Product read(
+    public ProductResponseDTO findById(
             @PathVariable("id") Long id
     ){
-        return productService.findById(id).orElseThrow(() -> new RuntimeException("Product Not Found"));
+        return productService.findByIdDTO(id); //findByIdDTO ja lança a exceção se não encontrar
     }
 
     @GetMapping
-    public List<Product> readAll(){
-        return productService.listAll();
+    public List<ProductResponseDTO> findAll(){
+
+        return productService.findAllDTO();
     }
 
     // Update
     @PutMapping("/{id}")
-    public Product update(
+    public ProductResponseDTO update(
             @PathVariable("id") Long id,
-            @RequestBody Product product
+            @RequestBody ProductRequestDTO requestDTO
     ){
-        return productService.updateProduct(id, product);
+        return productService.updateProductDTO(id, requestDTO);
     }
 
     // Delete
