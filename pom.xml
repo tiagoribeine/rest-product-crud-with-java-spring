@@ -51,6 +51,11 @@
             <scope>runtime</scope> <!-- Padrão: Disponível em todas as fases: Compilação, testes e execução. runtime: Disponivel apenas durante testes e execução. -->
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
 
     </dependencies>

@@ -44,4 +44,8 @@ public class ProductService {
             throw new RuntimeException("Product with the ID" + id + " not found");
         }
     }
+
+    public List<Product> saveAllProducts(List<Product> products){
+        return productRepository.saveAll(products);
+    }
 }

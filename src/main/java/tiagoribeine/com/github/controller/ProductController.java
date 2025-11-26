@@ -8,7 +8,7 @@ import tiagoribeine.com.github.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
@@ -18,6 +18,11 @@ public class ProductController {
     @PostMapping
     public Product create(@RequestBody Product product){
         return productService.saveProduct(product);
+    }
+
+    @PostMapping("/batch")
+    public List<Product> createAll(@RequestBody List<Product> products){
+        return productService.saveAllProducts(products);
     }
 
 //    @PostMapping(
