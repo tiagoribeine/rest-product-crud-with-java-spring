@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    @Autowired
+    @Autowired //Ganhamos os metodos: findAll, findById, save, saveAll, deleteById etc.;;
     private ProductRepository productRepository;
 
     //List all
@@ -26,7 +26,7 @@ public class ProductService {
 
     //Save new product
     public Product saveProduct(Product product){
-        return productRepository.save(product);
+        return productRepository.save(checkStockStatus(product));
     }
 
     //Delete a product
@@ -39,13 +39,30 @@ public class ProductService {
 
         if(productRepository.existsById(id)) {
             product.setId(id);
-            return productRepository.save(product);
+            return productRepository.save(checkStockStatus(product));
         } else {
             throw new RuntimeException("Product with the ID" + id + " not found");
         }
     }
 
+    //Save a list of products - Batch
     public List<Product> saveAllProducts(List<Product> products){
+        for(Product product: products){
+            checkStockStatus(product);
+        }
         return productRepository.saveAll(products);
+    }
+
+    private Product checkStockStatus(Product product){
+        if (product.getQuantity() <= 0 ){
+            product.setStatus("No Stock");
+        }
+        else if (product.getQuantity() <= 5){
+            product.setStatus("Low Stock");
+        }
+        else if (product.getQuantity() > 5) {
+            product.setStatus("In Stock");
+        }
+        return product;
     }
 }

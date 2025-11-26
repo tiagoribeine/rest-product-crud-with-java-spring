@@ -7,6 +7,8 @@ import tiagoribeine.com.github.model.Product;
 import tiagoribeine.com.github.service.ProductService;
 import java.util.List;
 
+//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/product")
 public class ProductController {

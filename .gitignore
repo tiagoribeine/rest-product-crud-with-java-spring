@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Configurações locais com senhas
+application-dev.yml
+application-local.yml
+/src/main/resources/application-dev.yml
